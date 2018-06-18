@@ -194,10 +194,10 @@ namespace NAudio.Wave
             MmException.Try(WaveInterop.waveInStop(waveInHandle), "waveInStop");
         }
 
+        private WaveFormat _waveFormat;
         /// <summary>
         /// WaveFormat we are recording in
         /// </summary>
-        private WaveFormat _waveFormat;
         public WaveFormat WaveFormat
         {
             get { return _waveFormat; }
