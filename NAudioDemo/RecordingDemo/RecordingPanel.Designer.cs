@@ -103,6 +103,7 @@
             this.radioButtonWaveIn.TabStop = true;
             this.radioButtonWaveIn.Text = "waveIn";
             this.radioButtonWaveIn.UseVisualStyleBackColor = true;
+            this.radioButtonWaveIn.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // radioButtonWasapi
             // 
@@ -113,6 +114,7 @@
             this.radioButtonWasapi.TabIndex = 6;
             this.radioButtonWasapi.Text = "WASAPI";
             this.radioButtonWasapi.UseVisualStyleBackColor = true;
+            this.radioButtonWasapi.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // comboWasapiDevices
             // 
@@ -132,6 +134,7 @@
             this.radioButtonWasapiLoopback.TabIndex = 6;
             this.radioButtonWasapiLoopback.Text = "WASAPI Loopback";
             this.radioButtonWasapiLoopback.UseVisualStyleBackColor = true;
+            this.radioButtonWasapiLoopback.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // radioButtonWaveInEvent
             // 
@@ -142,6 +145,7 @@
             this.radioButtonWaveInEvent.TabIndex = 6;
             this.radioButtonWaveInEvent.Text = "waveIn Event Callbacks";
             this.radioButtonWaveInEvent.UseVisualStyleBackColor = true;
+            this.radioButtonWaveInEvent.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // listBoxRecordings
             // 

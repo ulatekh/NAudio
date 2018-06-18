@@ -114,7 +114,6 @@ namespace NAudio.Wave
         {
             if (recording)
                 throw new InvalidOperationException("Already recording"); 
-            OpenWaveInDevice();
             MmException.Try(WaveInterop.waveInStart(waveInHandle), "waveInStart");
             recording = true;
             ThreadPool.QueueUserWorkItem((state) => RecordThread(), null);
@@ -198,7 +197,16 @@ namespace NAudio.Wave
         /// <summary>
         /// WaveFormat we are recording in
         /// </summary>
-        public WaveFormat WaveFormat { get; set; }
+        private WaveFormat _waveFormat;
+        public WaveFormat WaveFormat
+        {
+            get { return _waveFormat; }
+            set
+            {
+                _waveFormat = value;
+                OpenWaveInDevice();
+            }
+        }
         
         /// <summary>
         /// Dispose pattern
@@ -209,8 +217,6 @@ namespace NAudio.Wave
             {
                 if (recording)
                     StopRecording();
-                
-                CloseWaveInDevice();
             }
         }
 

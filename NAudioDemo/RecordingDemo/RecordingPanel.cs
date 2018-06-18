@@ -49,11 +49,16 @@ namespace NAudioDemo
             comboWasapiDevices.DisplayMember = "FriendlyName";
         }
 
+        private void radioButton_CheckedChanged(object sender, System.EventArgs e)
+        {
+            // Remember to create a new recording device.
+            waveIn = null;
+        }
+
         private void OnButtonStartRecordingClick(object sender, EventArgs e)
         {
             if (waveIn == null)
             {
-                outputFilename = String.Format("NAudioDemo {0:yyy-mm-dd HH-mm-ss}.wav", DateTime.Now);
                 if (radioButtonWaveIn.Checked)
                 {
                     waveIn = new WaveIn();
@@ -75,14 +80,16 @@ namespace NAudioDemo
                     // can't set WaveFormat as WASAPI doesn't support SRC
                     waveIn = new WasapiLoopbackCapture();
                 }
-                
-                writer = new WaveFileWriter(Path.Combine(outputFolder, outputFilename), waveIn.WaveFormat);
 
                 waveIn.DataAvailable += OnDataAvailable;
                 waveIn.RecordingStopped += OnRecordingStopped;
-                waveIn.StartRecording();
-                buttonStartRecording.Enabled = false;
             }
+
+            outputFilename = String.Format("NAudioDemo {0:yyy-mm-dd HH-mm-ss}.wav", DateTime.Now);
+            writer = new WaveFileWriter(Path.Combine(outputFolder, outputFilename), waveIn.WaveFormat);
+
+            waveIn.StartRecording();
+            buttonStartRecording.Enabled = false;
         }
 
         void OnRecordingStopped(object sender, StoppedEventArgs e)
@@ -93,7 +100,11 @@ namespace NAudioDemo
             }
             else
             {
-                Cleanup();
+                if (writer != null)
+                {
+                    writer.Close();
+                    writer = null;
+                }
                 buttonStartRecording.Enabled = true;
                 progressBar1.Value = 0;
                 if (e.Exception != null)
