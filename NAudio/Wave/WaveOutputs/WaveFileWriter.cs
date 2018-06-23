@@ -373,6 +373,7 @@ namespace NAudio.Wave
                         outStream = null;
                     }
                 }
+				GC.SuppressFinalize(this);
             }
         }
 
